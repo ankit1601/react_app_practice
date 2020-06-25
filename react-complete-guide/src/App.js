@@ -23,14 +23,27 @@ class App extends Component {
   ]})
  }
 
- nameChangeHandler = (event)  => {
+ nameChangeHandler = (event, id)  => {
   // console.log("Was Click")
   //We should not change state direct without using setState method
-  this.setState({persons:[
-    {name:"Ankit Aggarwal", age:28},
-    {name:event.target.value, age:46},
-    {name:'Amit', age:30}
-  ]})
+  const personIndex = this.state.persons.findIndex(p => {
+    return p.id === id;
+  })
+  const person = {
+    ...this.state.persons[personIndex]
+  }
+
+  //alternative but less prefered method below
+
+  // const person = Object.assign( {}, this.state.persons[personIndex])
+
+  person.name = event.target.value
+
+  const persons = [...this.state.persons];
+
+  persons[personIndex] = person
+
+  this.setState({persons:persons})
  }
 
  deletePersonHandler = (personIndex) => {
@@ -64,7 +77,8 @@ class App extends Component {
       {this.state.persons.map((person, index) =>  {
          return <Person key={person.id} click = {()=>this.deletePersonHandler(index)}
                         name={person.name} 
-                        age={person.age} />
+                        age={person.age} 
+                        changed={(event)=>{this.nameChangeHandler(event,person.id)}} />
       })}
       {/* <Person  
       name={this.state.persons[0].name} 

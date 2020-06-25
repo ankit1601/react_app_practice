@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
+import person from './Person/Person';
 
 class App extends Component {
  state = {
    persons:[
-     {name:'ANkit', age:28},
-     {name:'Ajay', age:46},
-     {name:'Amit', age:36}
+     {id:"shjksa",name:'ANkit', age:28},
+     {id:"jkdjshd",name:'Ajay', age:46},
+     {id:"kjhfkjdh", name:'Amit', age:36}
    ],
    showPersons:false
  }
@@ -32,6 +33,14 @@ class App extends Component {
   ]})
  }
 
+ deletePersonHandler = (personIndex) => {
+    // const persons = this.state.persons;// this will copy the reference of original array just to avoid we can copy
+    // const persons = this.state.persons.splice() // splice without arguements copy complete array but we have another syntax
+    const persons = [...this.state.persons]
+    persons.splice(personIndex,1);
+    this.setState({persons:persons})
+ }
+
  togglePersonHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({showPersons:!doesShow})
@@ -51,7 +60,13 @@ class App extends Component {
    if(this.state.showPersons){
      persons = (
       <div>
-      <Person  
+
+      {this.state.persons.map((person, index) =>  {
+         return <Person key={person.id} click = {()=>this.deletePersonHandler(index)}
+                        name={person.name} 
+                        age={person.age} />
+      })}
+      {/* <Person  
       name={this.state.persons[0].name} 
       age={this.state.persons[0].age}/>
       <Person 
@@ -61,7 +76,7 @@ class App extends Component {
       changed={this.nameChangeHandler}>My Hobbies: Racing</Person>
       <Person 
       name={this.state.persons[2].name} 
-      age={this.state.persons[2].age}/>
+      age={this.state.persons[2].age}/> */}
   </div> 
      )
    }

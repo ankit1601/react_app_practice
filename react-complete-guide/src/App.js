@@ -11,25 +11,51 @@ class App extends Component {
      {name:'Amit', age:36}
    ]
  }
- switchNameHandler = ()  => {
+ switchNameHandler = (newName)  => {
   // console.log("Was Click")
   //We should not change state direct without using setState method
   this.setState({persons:[
-    {name:'Ankit Agarwwal', age:28},
+    {name:newName, age:28},
     {name:'Ajay', age:46},
     {name:'Amit', age:34}
   ]})
  }
+
+ nameChangeHandler = (event)  => {
+  // console.log("Was Click")
+  //We should not change state direct without using setState method
+  this.setState({persons:[
+    {name:"Ankit Aggarwal", age:28},
+    {name:event.target.value, age:46},
+    {name:'Amit', age:30}
+  ]})
+ }
  
  render(){
+   const style = {
+     backgroundColor:'white',
+     font:'inherit',
+     border:'1px solid blue',
+     padding:'8px',
+     cursor:'pointer'
+   }
   return (
     <div className="App">
       <h1>Hi, I am React App</h1>
       <p>This is really working</p>
-      <button onClick={this.switchNameHandler}>Switch Name</button>
-      <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
-      <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My Hobbies: Racing</Person>
-      <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+      <button style={style} onClick={()=>this.switchNameHandler("Ankit Aggarwal!!!")}>Switch Name</button>
+      <button style={style} onClick={()=>{return this.switchNameHandler("Ankit Aggarwal!!!")}}>Switch Name</button>
+      <Person 
+      name={this.state.persons[0].name} 
+      age={this.state.persons[0].age}/>
+      <Person 
+      name={this.state.persons[1].name}
+       age={this.state.persons[1].age}
+       click={this.switchNameHandler.bind(this,"Ankit!!!")}
+       changed={this.nameChangeHandler}>My Hobbies: Racing</Person>
+      <Person 
+      name={this.state.persons[2].name} 
+      age={this.state.persons[2].age}/>
 
     </div>
   );

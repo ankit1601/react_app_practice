@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
-import person from './Person/Person';
+import Radium, {StyleRoot} from 'radium';
 
 class App extends Component {
  state = {
@@ -60,12 +60,18 @@ class App extends Component {
  }
  
  render(){
+   console.log('render is called')
    const style = {
-     backgroundColor:'white',
+     backgroundColor:'green',
+     color:"white", 
      font:'inherit',
      border:'1px solid blue',
      padding:'8px',
-     cursor:'pointer  '
+     cursor:'pointer',
+     ':hover':{
+       backgroundColor:'lightgreen',
+       color:'black'
+     }
    }
 
    let persons = null;
@@ -93,15 +99,32 @@ class App extends Component {
       age={this.state.persons[2].age}/> */}
   </div> 
      )
+
+     style.backgroundColor ='red';
+
+     style[':hover'] = {
+       backgroundColor:'salmon ',
+       color:'black'
+     }
    }
+
+  let classes = [];
+  if(this.state.persons.length<=2){
+    classes.push('red')
+  }
+  if(this.state.persons.length<=1){
+    classes.push('bold')
+  }
   return (
-    <div className="App">
-      <h1>Hi, I am React App</h1>
-      <p>This is really working</p>
-      <button style={style} onClick={this.togglePersonHandler}>Toggle Persons</button>
-      <button style={style} onClick={()=>{return this.switchNameHandler("Ankit Aggarwal!!!")}}>Switch Name</button>
-      {persons}
-    </div>
+    <StyleRoot>
+      <div className="App">
+        <h1 key={"hdsgksjdh"} >Hi, I am React App</h1>
+        <p key={"sdnhdj"} className={classes.join(' ')}>This is really working</p>
+        <button key={'shdgshad'} style={style} onClick={this.togglePersonHandler}>Toggle Persons</button>
+        <button key={'shdgssjdad'} style={style} onClick={()=>{return this.switchNameHandler("Ankit Aggarwal!!!")}}>Switch Name</button>
+        {persons}
+      </div>
+    </StyleRoot>
   );
  } 
  
@@ -115,4 +138,4 @@ class App extends Component {
   //many build tools and compilers finally convert the JSX to react javascript code to create Elements
 }
 
-export default App;
+export default Radium(App); // Radium is called Higher Order Component

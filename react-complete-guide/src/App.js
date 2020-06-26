@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
-import Radium, {StyleRoot} from 'radium';
 
 class App extends Component {
  state = {
@@ -68,10 +67,6 @@ class App extends Component {
      border:'1px solid blue',
      padding:'8px',
      cursor:'pointer',
-     ':hover':{
-       backgroundColor:'lightgreen',
-       color:'black'
-     }
    }
 
    let persons = null;
@@ -101,11 +96,6 @@ class App extends Component {
      )
 
      style.backgroundColor ='red';
-
-     style[':hover'] = {
-       backgroundColor:'salmon ',
-       color:'black'
-     }
    }
 
   let classes = [];
@@ -116,7 +106,6 @@ class App extends Component {
     classes.push('bold')
   }
   return (
-    <StyleRoot>
       <div className="App">
         <h1 key={"hdsgksjdh"} >Hi, I am React App</h1>
         <p key={"sdnhdj"} className={classes.join(' ')}>This is really working</p>
@@ -124,7 +113,6 @@ class App extends Component {
         <button key={'shdgssjdad'} style={style} onClick={()=>{return this.switchNameHandler("Ankit Aggarwal!!!")}}>Switch Name</button>
         {persons}
       </div>
-    </StyleRoot>
   );
  } 
  
@@ -138,4 +126,4 @@ class App extends Component {
   //many build tools and compilers finally convert the JSX to react javascript code to create Elements
 }
 
-export default Radium(App); // Radium is called Higher Order Component
+export default App; // Radium is called Higher Order Component

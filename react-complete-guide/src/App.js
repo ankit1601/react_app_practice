@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import classes from './App.css';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary'; //this is higher order component provided by react 16 it's 
+//a component to handle any error that components might throw. This will work only in production mode not in Development mode
 
 class App extends Component {
  state = {
@@ -60,26 +62,27 @@ class App extends Component {
  
  render(){
    console.log('render is called')
-   const style = {
-     backgroundColor:'green',
-     color:"white", 
-     font:'inherit',
-     border:'1px solid blue',
-     padding:'8px',
-     cursor:'pointer',
-   }
+  //  const style = {
+  //    backgroundColor:'green',
+  //    color:"white", 
+  //    font:'inherit',
+  //    border:'1px solid blue',
+  //    padding:'8px',
+  //    cursor:'pointer',
+  //  }
 
    let persons = null;
+   let btnClass = ''
 
    if(this.state.showPersons){
      persons = (
       <div>
 
       {this.state.persons.map((person, index) =>  {
-         return <Person key={person.id} click = {()=>this.deletePersonHandler(index)}
+         return <ErrorBoundary key={person.id}><Person  click = {()=>this.deletePersonHandler(index)}
                         name={person.name} 
                         age={person.age} 
-                        changed={(event)=>{this.nameChangeHandler(event,person.id)}} />
+                        changed={(event)=>{this.nameChangeHandler(event,person.id)}} /></ErrorBoundary>
       })}
       {/* <Person  
       name={this.state.persons[0].name} 
@@ -95,7 +98,9 @@ class App extends Component {
   </div> 
      )
 
-     style.backgroundColor ='red';
+     //style.backgroundColor ='red';
+     btnClass = classes.Red //This is enabled  by css module. it keep all class when you import classes(any name allowed)
+                            // from css file. classes will contain all class even if they are nested
    }
 
   let assignedClasses = [];
@@ -109,8 +114,8 @@ class App extends Component {
       <div className={classes.App}>
         <h1 key={"hdsgksjdh"} >Hi, I am React App</h1>
         <p key={"sdnhdj"} className={assignedClasses.join(' ')}>This is really working</p>
-        <button key={'shdgshad'} style={style} onClick={this.togglePersonHandler}>Toggle Persons</button>
-        <button key={'shdgssjdad'} style={style} onClick={()=>{return this.switchNameHandler("Ankit Aggarwal!!!")}}>Switch Name</button>
+        <button key={'shdgshad'} className={btnClass}  onClick={this.togglePersonHandler}>Toggle Persons</button>
+        <button key={'shdgssjdad'}  onClick={()=>{return this.switchNameHandler("Ankit Aggarwal!!!")}}>Switch Name</button>
         {persons}
       </div>
   );

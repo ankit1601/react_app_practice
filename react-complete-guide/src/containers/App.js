@@ -7,14 +7,36 @@ import Cockpit from '../components/Cockpit/Cockpit';
 //a component to handle any error that components might throw. This will work only in production mode not in Development mode
 
 class App extends Component {
- state = {
-   persons:[
-     {id:"shjksa",name:'ANkit', age:28},
-     {id:"jkdjshd",name:'Ajay', age:46},
-     {id:"kjhfkjdh", name:'Amit', age:36}
-   ],
-   showPersons:false
+
+ constructor(props){
+    super(props)
+    console.log('[App.js] Inside Constructor and this props',props)
+    this.state = {
+      persons:[
+        {id:"shjksa",name:'ANkit', age:28},
+        {id:"jkdjshd",name:'Ajay', age:46},
+        {id:"kjhfkjdh", name:'Amit', age:36}
+      ],
+      showPersons:false
+    }
  }
+
+ componentWillMount(){
+   console.log('[App.js] component will mount')
+ }
+
+ componentDidMount(){
+   console.log('[App.js] component did mount')
+ }
+
+//  state = {
+//    persons:[
+//      {id:"shjksa",name:'ANkit', age:28},
+//      {id:"jkdjshd",name:'Ajay', age:46},
+//      {id:"kjhfkjdh", name:'Amit', age:36}
+//    ],
+//    showPersons:false
+//  }
  switchNameHandler = (newName)  => {
   // console.log("Was Click")
   //We should not change state direct without using setState method
@@ -26,26 +48,26 @@ class App extends Component {
  }
 
  nameChangeHandler = (event, id)  => {
-  // console.log("Was Click")
-  //We should not change state direct without using setState method
-  const personIndex = this.state.persons.findIndex(p => {
-    return p.id === id;
-  })
-  const person = {
-    ...this.state.persons[personIndex]
-  }
+      // console.log("Was Click")
+      //We should not change state direct without using setState method
+      const personIndex = this.state.persons.findIndex(p => {
+        return p.id === id;
+      })
+      const person = {
+        ...this.state.persons[personIndex]
+      }
 
-  //alternative but less prefered method below
+      //alternative but less prefered method below
 
-  // const person = Object.assign( {}, this.state.persons[personIndex])
+      // const person = Object.assign( {}, this.state.persons[personIndex])
 
-  person.name = event.target.value
+      person.name = event.target.value
 
-  const persons = [...this.state.persons];
+      const persons = [...this.state.persons];
 
-  persons[personIndex] = person
+      persons[personIndex] = person
 
-  this.setState({persons:persons})
+      this.setState({persons:persons})
  }
 
  deletePersonHandler = (personIndex) => {
@@ -62,7 +84,7 @@ class App extends Component {
  }
  
  render(){
-   console.log('render is called')
+   console.log('[App.js] render is called')
   //  const style = {
   //    backgroundColor:'green',
   //    color:"white", 
@@ -81,7 +103,7 @@ class App extends Component {
                  clicked={this.deletePersonHandler} 
                  changed={this.nameChangeHandler}>
         </Persons>
-
+   }
       {/* {this.state.} */}
       {/* <Person  
       name={this.state.persons[0].name} 
@@ -99,7 +121,6 @@ class App extends Component {
      //style.backgroundColor ='red';
     //  btnClass = classes.Red //This is enabled  by css module. it keep all class when you import classes(any name allowed)
                             // from css file. classes will contain all class even if they are nested
-   }
 
   return (
       <div className={classes.App}>

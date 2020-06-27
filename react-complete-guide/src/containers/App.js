@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 // import logo from './logo.svg';
 import classes from './App.css';
-import Person from './Person/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary'; //this is higher order component provided by react 16 it's 
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
+// import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary'; //this is higher order component provided by react 16 it's 
 //a component to handle any error that components might throw. This will work only in production mode not in Development mode
 
 class App extends Component {
@@ -72,18 +73,16 @@ class App extends Component {
   //  }
 
    let persons = null;
-   let btnClass = ''
+  //  let btnClass = ''
 
    if(this.state.showPersons){
-     persons = (
-      <div>
+     persons = 
+        <Persons persons={this.state.persons} 
+                 clicked={this.deletePersonHandler} 
+                 changed={this.nameChangeHandler}>
+        </Persons>
 
-      {this.state.persons.map((person, index) =>  {
-         return <ErrorBoundary key={person.id}><Person  click = {()=>this.deletePersonHandler(index)}
-                        name={person.name} 
-                        age={person.age} 
-                        changed={(event)=>{this.nameChangeHandler(event,person.id)}} /></ErrorBoundary>
-      })}
+      {/* {this.state.} */}
       {/* <Person  
       name={this.state.persons[0].name} 
       age={this.state.persons[0].age}/>
@@ -94,28 +93,21 @@ class App extends Component {
       changed={this.nameChangeHandler}>My Hobbies: Racing</Person>
       <Person 
       name={this.state.persons[2].name} 
-      age={this.state.persons[2].age}/> */}
-  </div> 
-     )
+      age={this.state.persons[2].age}/> */} 
+     
 
      //style.backgroundColor ='red';
-     btnClass = classes.Red //This is enabled  by css module. it keep all class when you import classes(any name allowed)
+    //  btnClass = classes.Red //This is enabled  by css module. it keep all class when you import classes(any name allowed)
                             // from css file. classes will contain all class even if they are nested
    }
 
-  let assignedClasses = [];
-  if(this.state.persons.length<=2){
-    assignedClasses.push(classes.red)
-  }
-  if(this.state.persons.length<=1){
-    assignedClasses.push(classes.bold)
-  }
   return (
       <div className={classes.App}>
-        <h1 key={"hdsgksjdh"} >Hi, I am React App</h1>
-        <p key={"sdnhdj"} className={assignedClasses.join(' ')}>This is really working</p>
-        <button key={'shdgshad'} className={btnClass}  onClick={this.togglePersonHandler}>Toggle Persons</button>
-        <button key={'shdgssjdad'}  onClick={()=>{return this.switchNameHandler("Ankit Aggarwal!!!")}}>Switch Name</button>
+        <Cockpit appTitle = {this.props.title}
+                 persons={this.state.persons} 
+                 showPersons={this.state.showPersons} 
+                 toggle={this.togglePersonHandler} 
+                 changename={this.switchNameHandler}></Cockpit>
         {persons}
       </div>
   );

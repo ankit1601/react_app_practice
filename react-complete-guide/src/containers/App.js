@@ -40,11 +40,9 @@ class App extends Component {
  switchNameHandler = (newName)  => {
   // console.log("Was Click")
   //We should not change state direct without using setState method
-  this.setState({persons:[
-    {name:newName, age:28},
-    {name:'Ajay', age:46},
-    {name:'Amit', age:34}
-  ]})
+  const persons = [...this.state.persons];
+  persons[0].name=newName
+  this.setState({persons:persons})
  }
 
  nameChangeHandler = (event, id)  => {

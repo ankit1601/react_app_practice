@@ -6,7 +6,7 @@ import Cockpit from '../components/Cockpit/Cockpit';
 // import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary'; //this is higher order component provided by react 16 it's 
 //a component to handle any error that components might throw. This will work only in production mode not in Development mode
 
-class App extends PureComponent {
+class App extends Component {
 
  constructor(props){
     super(props)
@@ -29,11 +29,11 @@ class App extends PureComponent {
    console.log('[App.js] component did mount')
  }
 
-//  shouldComponentUpdate(nextProps,nextState){
-//   console.log("[UPDATE App.js] inside shouldComponentUpdate",nextProps, nextState)
-//   return nextState.persons !== this.state.persons || nextState.showPersons !== this.state.showPersons;
-//   // return true
-// }
+ shouldComponentUpdate(nextProps,nextState){
+  console.log("[UPDATE App.js] inside shouldComponentUpdate",nextProps, nextState)
+  return nextState.persons !== this.state.persons || nextState.showPersons !== this.state.showPersons;
+  // return true
+}
 
 componentWillUpdate(nextProps,nextState){
  console.log("[UPDATE App.js] inside componentWillUpdate",nextProps, nextState)

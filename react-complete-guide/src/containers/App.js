@@ -5,6 +5,7 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 // import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary'; //this is higher order component provided by react 16 it's 
 //a component to handle any error that components might throw. This will work only in production mode not in Development mode
+import WithClass from '../hoc/WithClass'
 
 class App extends Component {
 
@@ -135,7 +136,7 @@ componentDidUpdate(){
                             // from css file. classes will contain all class even if they are nested
 
   return (
-      <div className={classes.App}>
+      <WithClass classes={classes.App}>
         <button onClick={()=>{this.setState({showPersons:true})}}>SHOW PERSONS</button>
         <Cockpit appTitle = {this.props.title}
                  persons={this.state.persons} 
@@ -143,7 +144,7 @@ componentDidUpdate(){
                  toggle={this.togglePersonHandler} 
                  changename={this.switchNameHandler}></Cockpit>
         {persons}
-      </div>
+      </WithClass>
   );
  } 
  

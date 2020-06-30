@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import classes from './Person.css';
 import WithClass from '../../../hoc/WithClass'
+import withFunClass from '../../../hoc/withFuncClass';
+import Auxhoc from '../../../hoc/Auxhoc';
 
 class Person extends Component{
     constructor(props){
@@ -18,12 +20,12 @@ class Person extends Component{
     render(){
         console.log('[Person.js] render is called')
         return (
-            <WithClass classes={classes.Person}>
+            <Auxhoc>
                 <p onClick={this.props.click}>I'm a {this.props.name} i am {this.props.age} years old</p>
                 <p>{this.props.children}</p>
                 <input type="text" onChange={this.props.changed} value={this.props.name}/>
         
-            </WithClass>
+            </Auxhoc>
             )
 
         // this is the feature in React 16 that you can return list of element/array, you don't always need to wrap in parent element like shown below
@@ -37,7 +39,7 @@ class Person extends Component{
     }
 }
 
-export default Person;
+export default withFunClass(Person, classes.Person);
 
 // const person = (props) =>{
 //     return (

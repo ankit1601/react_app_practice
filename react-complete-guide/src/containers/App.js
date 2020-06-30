@@ -5,7 +5,9 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 // import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary'; //this is higher order component provided by react 16 it's 
 //a component to handle any error that components might throw. This will work only in production mode not in Development mode
-import WithClass from '../hoc/WithClass'
+import WithClass from '../hoc/WithClass';
+import withFunClass from '../hoc/withFuncClass';
+import Auxhoc from '../hoc/Auxhoc';
 
 class App extends Component {
 
@@ -136,7 +138,7 @@ componentDidUpdate(){
                             // from css file. classes will contain all class even if they are nested
 
   return (
-      <WithClass classes={classes.App}>
+      <Auxhoc>
         <button onClick={()=>{this.setState({showPersons:true})}}>SHOW PERSONS</button>
         <Cockpit appTitle = {this.props.title}
                  persons={this.state.persons} 
@@ -144,7 +146,7 @@ componentDidUpdate(){
                  toggle={this.togglePersonHandler} 
                  changename={this.switchNameHandler}></Cockpit>
         {persons}
-      </WithClass>
+      </Auxhoc>
   );
  } 
  
@@ -158,4 +160,4 @@ componentDidUpdate(){
   //many build tools and compilers finally convert the JSX to react javascript code to create Elements
 }
 
-export default App; // Radium is called Higher Order Component
+export default withFunClass(App, classes.App); // Radium is called Higher Order Component

@@ -20,7 +20,8 @@ class App extends Component {
         {id:"jkdjshd",name:'Ajay', age:46},
         {id:"kjhfkjdh", name:'Amit', age:36}
       ],
-      showPersons:false
+      showPersons:false,
+      toggleClicked:0
     }
  }
 
@@ -95,7 +96,17 @@ componentDidUpdate(){
 
  togglePersonHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState({showPersons:!doesShow})
+    // this.setState({showPersons:!doesShow,toggleClicked:this.state.toggleClicked+1}) //this is not the best practice when we are dependent on previous state
+    // As set state is Asynchronous possible that some other method have changed it value to the best way is to use new way which is
+
+    this.setState(
+      (prevState, props)=>{
+        return {
+          showPersons:!doesShow,
+          toggleClicked:prevState.toggleClicked+1
+        }
+      }
+    )
  }
  
  render(){

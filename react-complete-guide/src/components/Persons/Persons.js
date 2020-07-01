@@ -5,6 +5,7 @@ class Persons extends Component{
     constructor(props){
         super(props)
         console.log('[Persons.js] Inside Constructor and this props',props)
+        this.lastPersonRef = React.createRef()
      }
     
      componentWillMount(){
@@ -13,6 +14,7 @@ class Persons extends Component{
     
      componentDidMount(){
        console.log('[Persons.js] component did mount')
+       this.lastPersonRef.current.focus()
      }
      componentWillReceiveProps(nextProps){
          console.log('[UPDATE Persons.js] inside componentWillReceiveProps',nextProps)
@@ -37,7 +39,8 @@ class Persons extends Component{
             return <Person position={index} click = {()=>this.props.clicked(index)}
                            name={person.name} 
                            age={person.age} 
-                           changed={(event)=>{this.props.changed(event,person.id)}} />
+                           changed={(event)=>{this.props.changed(event,person.id)}} 
+                           forwardRefs={this.lastPersonRef}/>
          });
     }
 }

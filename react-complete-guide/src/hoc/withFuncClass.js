@@ -15,16 +15,24 @@ import React, {Component} from  'react';
 // }
 
 const withFunClass = (WrappedComponent, className) => {
-    return class extends Component {
+    const WithFunClass =  class extends Component {
         render(){
             return(
                 (<div className = {className}>
-                    <WrappedComponent {...this.props}/>
+                    <WrappedComponent ref={this.props.forwardRefs} {...this.props}/>
                 </div>)
             )
         }
     } 
+
+    return React.forwardRef((props,ref) => {
+        return(
+            <WithFunClass forwardRefs={ref} {...props} ></WithFunClass>
+        )
+    })
 }
+
+
 
 // this is stateless component but we can also return a stateful component say if you want to do somethiing in lifecycle hooks
 // notice one thing here is we don't give any name to class it is ananomous class and we use this keyword to access props

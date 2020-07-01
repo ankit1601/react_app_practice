@@ -23,6 +23,9 @@ class Person extends Component{
        }
        
      }
+     focus(){
+       this.textInput.current.focus();
+     }
     render(){
         console.log('[Person.js] render is called')
         return (

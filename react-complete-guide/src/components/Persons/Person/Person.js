@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 class Person extends Component{
     constructor(props){
         super(props)
+        this.textInput = React.createRef();
         console.log('[Person.js] Inside Constructor and this props', props)
      }
     
@@ -17,6 +18,10 @@ class Person extends Component{
     
      componentDidMount(){
        console.log('[Person.js] component did mount')
+       if(this.props.position == 0){
+        this.textInput.current.focus();
+       }
+       
      }
     render(){
         console.log('[Person.js] render is called')
@@ -24,7 +29,7 @@ class Person extends Component{
             <Auxhoc>
                 <p onClick={this.props.click}>I'm a {this.props.name} i am {this.props.age} years old</p>
                 <p>{this.props.children}</p>
-                <input type="text" onChange={this.props.changed} value={this.props.name}/>
+                <input ref={this.textInput} type="text" onChange={this.props.changed} value={this.props.name}/>
         
             </Auxhoc>
             )
